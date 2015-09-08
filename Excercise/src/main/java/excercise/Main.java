@@ -2,6 +2,7 @@ package excercise;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,8 +12,7 @@ public class Main {
     public static void main(String[] args) {
         File file = new File("D:\\Reozytoria\\sample-files\\small.in");
         Text text = getTextFromFile(file);
-
-        saveToCSV(text);
+        saveToCSV(text, "D:\\Reozytoria\\Info\\Excercise\\text.csv");
     }
 
     private static Text getTextFromFile(File file) {
@@ -43,7 +43,7 @@ public class Main {
         return text;
     }
 
-    private static void saveToCSV(Text text) {
+    private static void saveToCSV(Text text, String filePath) {
         String csv = "";
         for (int i = 0; i < text.getSentences().size(); i++) {
             Sentence sen = text.getSentences().get(i);
@@ -59,5 +59,13 @@ public class Main {
             csv = csv + sentenceLine + "\n";
         }
         System.out.println(csv);
+        try {
+            PrintWriter writer = new PrintWriter(filePath);
+            writer.write(csv);
+            writer.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+    
 }
