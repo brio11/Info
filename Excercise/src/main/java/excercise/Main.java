@@ -3,6 +3,7 @@ package excercise;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,10 +61,12 @@ public class Main {
         }
         System.out.println(csv);
         try {
-            PrintWriter writer = new PrintWriter(filePath);
+            PrintWriter writer = new PrintWriter(filePath, "UTF-8");
             writer.write(csv);
             writer.close();
         } catch (FileNotFoundException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
